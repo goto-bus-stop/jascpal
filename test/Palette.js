@@ -1,12 +1,14 @@
 var Palette = require('../')
-  , assert = require('assert')
-  , readFile = require('fs').readFileSync
-  , joinPath = require('path').join
 
-function read(file) { return readFile(joinPath(__dirname, file)) }
+var assert = require('assert')
+
+var readFile = require('fs').readFileSync
+
+var joinPath = require('path').join
+
+function read (file) { return readFile(joinPath(__dirname, file)) }
 
 describe('Palette:', function () {
-
   describe('parses valid palettes', function () {
     var pal = Palette(read('simple.pal'))
 
@@ -53,11 +55,11 @@ describe('Palette:', function () {
 
   describe('creates new palettes', function () {
     it('from color arrays', function () {
-      var pal = Palette([ [ 0,  0,   128 ]
-                        , [ 0,  128, 128 ]
-                        , [ 71, 47,  63  ]
-                        , [ 1,  2,   3   ]
-                        , [ 4,  65,  6   ] ])
+      var pal = Palette([ [ 0, 0, 128 ],
+        [ 0, 128, 128 ],
+        [ 71, 47, 63 ],
+        [ 1, 2, 3 ],
+        [ 4, 65, 6 ] ])
       assert.strictEqual(pal.toString(), read('expected-create.pal').toString('ascii'))
     })
     it('out of thin air', function () {
@@ -66,9 +68,8 @@ describe('Palette:', function () {
       pal[1] = [ 0, 128, 128 ] // assigning array indices!
       pal.setColor(2, [ 71, 47, 63 ]) // Palette methods!
       pal.push([ 1, 2, 3 ]
-             , [ 4, 65, 6 ]) // more array methods!
+        , [ 4, 65, 6 ]) // more array methods!
       assert.strictEqual(pal.toString(), read('expected-create.pal').toString('ascii'))
     })
   })
-
 })
