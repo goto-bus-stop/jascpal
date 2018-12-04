@@ -10,12 +10,14 @@
   ],
   "devDependencies": {
     "buble": "^0.19.6",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
   },
   "scripts": {
     "prepublish": "npm run build",
     "build": "buble src/Palette.js > index.js",
-    "test": "mocha"
+    "test": "mocha",
+    "test-cov": "nyc mocha && nyc check-coverage --lines 100 --functions 100 --branches 100"
   },
   "repository": {
     "type": "git",
