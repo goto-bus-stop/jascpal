@@ -9,8 +9,6 @@ matrix:
       node_js: 8
     - os: linux
       node_js: 6
-    - os: linux
-      node_js: 4
     - os: windows
       node_js: latest
     - os: windows
@@ -19,8 +17,6 @@ matrix:
       node_js: 8
     - os: windows
       node_js: 6
-    - os: windows
-      node_js: 4
 
 script:
   - npm run test-cov
