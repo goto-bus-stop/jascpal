@@ -30,7 +30,7 @@ function Palette (buf) {
     data = { colors: buf, numColors: buf.length, version: '0100' }
   } else {
     // reading a palette
-    let str = Buffer.isBuffer(buf) ? buf.toString('ascii') : buf
+    const str = Buffer.isBuffer(buf) ? buf.toString('ascii') : buf
     data = parse(str)
   }
 
@@ -46,13 +46,13 @@ function Palette (buf) {
 }
 
 function parse (buf) {
-  let colors = []
+  const colors = []
 
-  let lines = buf.split(/\r?\n/)
+  const lines = buf.split(/\r?\n/)
 
   // lines[0] == "JASC-PAL\n"
-  let version = lines[1] // probably always 0100
-  let numColors = parseInt(lines[2], 10)
+  const version = lines[1] // probably always 0100
+  const numColors = parseInt(lines[2], 10)
 
   // TODO use lines.length instead of numColors, to be more forgiving?
   // maybe have a "loose" mode that will just do whatever is in the file

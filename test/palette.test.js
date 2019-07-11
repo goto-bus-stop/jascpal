@@ -26,8 +26,8 @@ test('parse - doesn\'t mind empty palettes', function (t) {
 test('parse - supports array access + getColor method', function (t) {
   var pal = Palette(read('simple.pal'))
 
-  t.deepEqual(pal[0], [ 0x00, 0x00, 0x00 ])
-  t.deepEqual(pal[3], [ 0x00, 0xff, 0xff ])
+  t.deepEqual(pal[0], [0x00, 0x00, 0x00])
+  t.deepEqual(pal[3], [0x00, 0xff, 0xff])
 
   t.strictEqual(pal[0], pal.getColor(0))
   t.end()
@@ -35,14 +35,14 @@ test('parse - supports array access + getColor method', function (t) {
 
 test('parse - can change', function (t) {
   var pal = Palette(read('simple.pal'))
-  t.deepEqual(pal[1], [ 0x00, 0x00, 0xff ])
-  t.deepEqual(pal[2], [ 0x00, 0xff, 0x00 ])
+  t.deepEqual(pal[1], [0x00, 0x00, 0xff])
+  t.deepEqual(pal[2], [0x00, 0xff, 0x00])
 
-  pal[1] = [ 0x77, 0x77, 0x77 ]
-  pal.setColor(2, [ 0x88, 0x88, 0x88 ])
+  pal[1] = [0x77, 0x77, 0x77]
+  pal.setColor(2, [0x88, 0x88, 0x88])
 
-  t.deepEqual(pal[1], [ 0x77, 0x77, 0x77 ])
-  t.deepEqual(pal[2], [ 0x88, 0x88, 0x88 ])
+  t.deepEqual(pal[1], [0x77, 0x77, 0x77])
+  t.deepEqual(pal[2], [0x88, 0x88, 0x88])
 
   t.strictEqual(pal.toString(), read('expected-simple.pal').toString('ascii'))
   t.end()
@@ -57,22 +57,22 @@ test('parse - supports carriage returns', function (t) {
 })
 
 test('new - from color arrays', function (t) {
-  var pal = Palette([ [ 0, 0, 128 ],
-    [ 0, 128, 128 ],
-    [ 71, 47, 63 ],
-    [ 1, 2, 3 ],
-    [ 4, 65, 6 ] ])
+  var pal = Palette([[0, 0, 128],
+    [0, 128, 128],
+    [71, 47, 63],
+    [1, 2, 3],
+    [4, 65, 6]])
   t.strictEqual(pal.toString(), read('expected-create.pal').toString('ascii'))
   t.end()
 })
 
 test('new - out of thin air', function (t) {
   var pal = Palette()
-  pal.push([ 0, 0, 128 ]) // array methods!
-  pal[1] = [ 0, 128, 128 ] // assigning array indices!
-  pal.setColor(2, [ 71, 47, 63 ]) // Palette methods!
-  pal.push([ 1, 2, 3 ]
-    , [ 4, 65, 6 ]) // more array methods!
+  pal.push([0, 0, 128]) // array methods!
+  pal[1] = [0, 128, 128] // assigning array indices!
+  pal.setColor(2, [71, 47, 63]) // Palette methods!
+  pal.push([1, 2, 3]
+    , [4, 65, 6]) // more array methods!
   t.strictEqual(pal.toString(), read('expected-create.pal').toString('ascii'))
   t.end()
 })
