@@ -22,19 +22,18 @@ module.exports = Palette
 // palette lines: three space-separated numbers (0-255), "<red> <green> <blue>"
 //           *OR* four  space-separated numbers (0-255), "<red> <green> <blue> <something>"
 // ```
-function Palette(buf) {
+function Palette (buf) {
   if (!(this instanceof Palette)) return new Palette(buf)
 
   if (!buf) buf = []
 
   let data
-  // creating a new palette
   if (Array.isArray(buf)) {
+    // creating a new palette
     data = { colors: buf, numColors: buf.length, version: '0100' }
-  }
-  // reading a palette
-  else {
-    let str = Buffer.isBuffer(buf) ? buf.toString('ascii') : buf
+  } else {
+    // reading a palette
+    const str = Buffer.isBuffer(buf) ? buf.toString('ascii') : buf
     data = parse(str)
   }
 
@@ -42,20 +41,22 @@ function Palette(buf) {
   assign(this, data)
   // public API
   data.colors.version = data.version
-  Object.keys(Palette.prototype)
-    .forEach(key => data.colors[key] = this[key].bind(this))
+  Object.keys(Palette.prototype).forEach((key) => {
+    data.colors[key] = this[key].bind(this)
+  })
 
   return data.colors
 }
 
-function parse(buf) {
-  let colors = []
-    , lines = buf.split(/\r?\n/)
+function parse (buf) {
+  const colors = []
+
+  const lines = buf.split(/\r?\n/)
 
   // lines[0] == "JASC-PAL"
-  let format = lines[0]
-  let version = lines[1] // probably always 0100
-  let numColors = parseInt(lines[2], 10)
+  const format = lines[0]
+  const version = lines[1] // probably always 0100
+  const numColors = parseInt(lines[2], 10)
 
   let entriesStart = 3
   let fixedAlpha = null
