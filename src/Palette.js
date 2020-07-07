@@ -30,7 +30,12 @@ function Palette (buf) {
   let data
   if (Array.isArray(buf)) {
     // creating a new palette
-    data = { colors: buf, numColors: buf.length, version: '0100' }
+    data = {
+      colors: buf,
+      numColors: buf.length,
+      version: '0100',
+      format: 'JASC-PAL'
+    }
   } else {
     // reading a palette
     const str = Buffer.isBuffer(buf) ? buf.toString('ascii') : buf
@@ -60,7 +65,7 @@ function parse (buf) {
 
   let entriesStart = 3
   let fixedAlpha = null
-  if (lines[3].startsWith('$')) {
+  if (lines.length > 3 && lines[3].startsWith('$')) {
     // lines[3] == $ALPHA (0-255)
     fixedAlpha = parseInt(lines[3].split(' ')[1], 10)
     entriesStart = 4
@@ -76,7 +81,7 @@ function parse (buf) {
     colors.push(lines[i].split(/\s+/).map(x => parseInt(x, 10)))
   }
 
-  const numChannels = colors[0].length
+  const numChannels = colors.length ? colors[0].length : 0
 
   return { format, version, fixedAlpha, numColors, numChannels, colors }
 }
