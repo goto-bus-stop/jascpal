@@ -60,7 +60,7 @@ function parse (buf) {
 
   let entriesStart = 3
   let fixedAlpha = null
-  if(lines[3].startsWith("$")) {
+  if (lines[3].startsWith('$')) {
     // lines[3] == $ALPHA (0-255)
     fixedAlpha = parseInt(lines[3].split(' ')[1], 10)
     entriesStart = 4
@@ -68,7 +68,7 @@ function parse (buf) {
 
   // TODO also check whether the file is valid
   for (let i = entriesStart; i < lines.length; i++) {
-    if(!lines[i] || lines[i].startsWith("#")) {
+    if (!lines[i] || lines[i].startsWith('#')) {
       // Comments or empty lines
       continue
     }
@@ -76,7 +76,7 @@ function parse (buf) {
     colors.push(lines[i].split(/\s+/).map(x => parseInt(x, 10)))
   }
 
-  let numChannels = colors[0].length
+  const numChannels = colors[0].length
 
   return { format, version, fixedAlpha, numColors, numChannels, colors }
 }
@@ -112,13 +112,13 @@ Palette.prototype.getNumChannels = function () {
 }
 
 Palette.prototype.toString = function () {
-  let output = ""
-  output = output + this.format + '\n'
-                  + this.version + '\n'
-                  + this.colors.length + '\n'
+  let output = ''
+  output = output + this.format + '\n' +
+                  this.version + '\n' +
+                  this.colors.length + '\n'
 
-  if(this.fixedAlpha) {
-    output = output + "$ALPHA " + this.fixedAlpha + '\n'
+  if (this.fixedAlpha) {
+    output = output + '$ALPHA ' + this.fixedAlpha + '\n'
   }
 
   output = output + this.colors.map(color => color.join(' ')).join('\n')
