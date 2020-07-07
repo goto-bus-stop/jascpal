@@ -46,13 +46,35 @@ Creates a new colour array with the below Palette methods.
 
 ### pal[0] or pal.getColor(0)
 
-Gets the colour at a given index. Colours are plain old `[ r, g, b ]` arrays, three integers between 0 and 255.
-Returns `undefined` if there is no colour at the given index.
+Gets the colour at a given index. Colours are plain old `[ r, g, b ]` or `[ r, g, b, a ]` arrays,
+with integers between 0 and 255. Returns `undefined` if there is no colour at the given index.
 
 ### pal[0] = color or pal.setColor(0, color)
 
 Sets the colour at a given index. Note that it doesn't actually *check* if you've put in valid colours.
 The `setColor` method also returns the palette so you can chain it (`pal.setColor(0, color0).setColor(2, color2)`).
+
+### pal.getFormat()
+
+Gets the format header string of the file, which is either `JASC-PAL` or `JASC-PALX`.
+
+### pal.getFixedAlpha()
+
+Gets the fixed alpha value for all colors in the palette. Returns `undefined` if there currently is
+no fixed alpha value set.
+
+### pal.setFixedAlpha(0)
+
+Sets the fixed alpha value for the palette. It should be a value between 0 and 255.
+
+### pal.getNumColors()
+
+Gets the number of color entries in the palette.
+
+### pal.getNumChannels()
+
+Gets the number of channels used for each color. `[ r, g, b ]` colors would be 3 channels,
+`[ r, g, b, a ]` would be 4.
 
 ### (pal + '') or pal.toString()
 
